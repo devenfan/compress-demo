@@ -10,6 +10,13 @@ import com.langel.compress.util.FileUtils;
 public class Main {
 
     public static void main(String[] args) {
+        test("Small File", "src/main/resources/small.txt", 10000);
+        test("General File", "src/main/resources/general.txt", 1000);
+        test("Big File", "src/main/resources/big.txt", 100);
+    }
+
+    private static void test(String testTitle, String testFile, int testNum) {
+
         Snappy snappy = new Snappy();
         ExecuteRecorder snappyExec = new ExecuteRecorder(snappy, snappy);
         Gzip gzip = new Gzip();
@@ -23,90 +30,32 @@ public class Main {
         ZstdStream zstdStream = new ZstdStream();
         ExecuteRecorder zstdStreamExec = new ExecuteRecorder(zstdStream,zstdStream);
 
-        System.out.println("Small File :");
-        int smallNum = 1000;
-        byte[] smallCnt = FileUtils.readToString("src/main/resources/small.txt").getBytes();
+
+        System.out.println("\n\n" + testTitle + " :");
+        byte[] fileBytes = FileUtils.readToString(testFile).getBytes();
 
         System.out.println("Snappy :");
-        byte[] snappyCompressed = snappyExec.compressMulti(smallCnt, smallNum);
-        snappyExec.decompressMulti(snappyCompressed, smallNum);
+        byte[] snappyCompressed = snappyExec.compressMulti(fileBytes, testNum);
+        snappyExec.decompressMulti(snappyCompressed, testNum);
 
-        System.out.println("Gzip :");
-        byte[] gzipCompressed = gzipExec.compressMulti(smallCnt, smallNum);
-        gzipExec.decompressMulti(gzipCompressed, smallNum);
-
-        System.out.println("Lz4 :");
-        byte[] lz4Compressed = lz4Exec.compressMulti(smallCnt, smallNum);
-        lz4Exec.decompressMulti(lz4Compressed, smallNum);
-
-//        System.out.println("Bzip :");
-//        byte[] bzipCompressed = bzipExec.compressMulti(smallCnt,smallNum);
-//        bzipExec.decompressMulti(bzipCompressed,smallNum);
-
-        System.out.println("Zstd :");
-        byte[] zstdCompressed = zstdExec.compressMulti(smallCnt, smallNum);
-        zstdExec.decompressMulti(zstdCompressed, smallNum);
-
-//        System.out.println("ZstdStream :");
-//        byte[] zstdStreamCompressed = zstdStreamExec.compressMulti(smallCnt, smallNum);
-//        zstdExec.decompressMulti(zstdStreamCompressed, smallNum);
-
-
-        System.out.println("\n\nGeneral File :");
-
-        int generalNum = 100;
-        byte[] generalCnt = FileUtils.readToString("src/main/resources/general.txt").getBytes();
-
-        System.out.println("Snappy :");
-        snappyCompressed = snappyExec.compressMulti(generalCnt, generalNum);
-        snappyExec.decompressMulti(snappyCompressed, generalNum);
-
-        System.out.println("Gzip :");
-        gzipCompressed = gzipExec.compressMulti(generalCnt, generalNum);
-        gzipExec.decompressMulti(gzipCompressed, generalNum);
+//        System.out.println("Gzip :");
+//        byte[] gzipCompressed = gzipExec.compressMulti(fileBytes, testNum);
+//        gzipExec.decompressMulti(gzipCompressed, testNum);
 
         System.out.println("Lz4 :");
-        lz4Compressed = lz4Exec.compressMulti(generalCnt, generalNum);
-        lz4Exec.decompressMulti(lz4Compressed, generalNum);
+        byte[] lz4Compressed = lz4Exec.compressMulti(fileBytes, testNum);
+        lz4Exec.decompressMulti(lz4Compressed, testNum);
 
-//        System.out.println("Bzip :");
-//        byte[] bzipCompressed = bzipExec.compressMulti(smallCnt,smallNum);
-//        bzipExec.decompressMulti(bzipCompressed,smallNum);
-
-        System.out.println("Zstd :");
-        zstdCompressed = zstdExec.compressMulti(generalCnt, generalNum);
-        zstdExec.decompressMulti(zstdCompressed, generalNum);
-
-//        System.out.println("ZstdStream :");
-//        zstdStreamCompressed = zstdStreamExec.compressMulti(generalCnt, generalNum);
-//        zstdExec.decompressMulti(zstdStreamCompressed, generalNum);
-
-        System.out.println("\n\nBig File :");
-        int bigNum = 10;
-        byte[] bigCnt = FileUtils.readToString("src/main/resources/big.txt").getBytes();
-
-        System.out.println("Snappy :");
-        snappyCompressed = snappyExec.compressMulti(bigCnt, bigNum);
-        snappyExec.decompressMulti(snappyCompressed, bigNum);
-
-        System.out.println("Gzip :");
-        gzipCompressed = gzipExec.compressMulti(bigCnt, bigNum);
-        gzipExec.decompressMulti(gzipCompressed, bigNum);
-
-        System.out.println("Lz4 :");
-        lz4Compressed = lz4Exec.compressMulti(bigCnt, bigNum);
-        lz4Exec.decompressMulti(lz4Compressed, bigNum);
-
-//        System.out.println("Bzip :");
-//        byte[] bzipCompressed = bzipExec.compressMulti(smallCnt,smallNum);
-//        bzipExec.decompressMulti(bzipCompressed,smallNum);
+        //        System.out.println("Bzip :");
+        //        byte[] bzipCompressed = bzipExec.compressMulti(fileBytes,testNum);
+        //        bzipExec.decompressMulti(bzipCompressed,testNum);
 
         System.out.println("Zstd :");
-        zstdCompressed = zstdExec.compressMulti(bigCnt, bigNum);
-        zstdExec.decompressMulti(zstdCompressed, bigNum);
+        byte[] zstdCompressed = zstdExec.compressMulti(fileBytes, testNum);
+        zstdExec.decompressMulti(zstdCompressed, testNum);
 
-//        System.out.println("ZstdStream :");
-//        zstdStreamCompressed = zstdStreamExec.compressMulti(bigCnt, bigNum);
-//        zstdExec.decompressMulti(zstdStreamCompressed, bigNum);
+        //        System.out.println("ZstdStream :");
+        //        zstdStreamCompressed = zstdStreamExec.compressMulti(fileBytes, testNum);
+        //        zstdExec.decompressMulti(zstdStreamCompressed, testNum);
     }
 }

@@ -25,7 +25,7 @@ public class ExecuteRecorder implements Decompress, Compress {
         byte[] v = compress.compress(val);
         System.out.println("        End compress : " + v.length);
         LocalDateTime end = LocalDateTime.now();
-        System.out.println("    Elapse : " + Duration.between(start, end).toString());
+        System.out.println("    Elapse : " + (Duration.between(start, end).toMillis()) + " (ms)");
 
         return v;
     }
@@ -39,7 +39,7 @@ public class ExecuteRecorder implements Decompress, Compress {
         System.out.println("        End compress : " + v.length);
         LocalDateTime end = LocalDateTime.now();
         System.out.println("    Count : " + num);
-        System.out.println("    Elapse : " + Duration.between(start, end).toString());
+        System.out.println("    Elapse : " + (Duration.between(start, end).toMillis()) + " (ms)");
         return v;
     }
 
@@ -50,7 +50,7 @@ public class ExecuteRecorder implements Decompress, Compress {
         byte[] v = decompress.decompress(val);
         System.out.println("        End decompress : " + v.length);
         LocalDateTime end = LocalDateTime.now();
-        System.out.println("    Elapse : " + Duration.between(start, end).toString());
+        System.out.println("    Elapse : " + (Duration.between(start, end).toMillis()) + " (ms)");
         return v;
     }
 
@@ -63,7 +63,7 @@ public class ExecuteRecorder implements Decompress, Compress {
         System.out.println("        End decompress : " + v.length);
         LocalDateTime end = LocalDateTime.now();
         System.out.println("    Count : " + num);
-        System.out.println("    Elapse : " + Duration.between(start, end).toString());
+        System.out.println("    Elapse : " + (Duration.between(start, end).toMillis()) + " (ms)");
         return v;
     }
 }
